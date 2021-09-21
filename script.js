@@ -6,7 +6,7 @@ let picturesArray = [];
 // Unsplash API
 const count = 10;
 const apiKey = "5nRRGqWQPZBMl9QpMPppLn6_3HbVzP2x6RwacsJDUSM";
-const apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}`;
+const apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}&query=dog&orientation=landscape`;
 
 // Helperfunction to set attributes
 function setAttributes(element, attributes) {
@@ -17,7 +17,7 @@ function setAttributes(element, attributes) {
 
 // Elements for links and pictures - add to DOM
 function displayPictures() {
-  // run functino for each object in picturesArray
+  // run function for each object in picturesArray
   picturesArray.forEach((picture) => {
     // create <a> to link to unsplash
     const item = document.createElement("a");
@@ -48,6 +48,14 @@ async function getPictures() {
     // catch error
   }
 }
+
+// Check if approaching bottom of page - Load more
+window.addEventListener("scroll", () => {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000) {
+    getPictures();
+    console.log("load more");
+  }
+});
 
 // On load
 getPictures();
